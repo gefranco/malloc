@@ -10,7 +10,6 @@ void *naive_malloc(size_t size)
 {
 	static int x;
 	static void *brk_base;
-	int i;
 
 	if (size == 0)
 		return (NULL);
@@ -26,7 +25,7 @@ void *naive_malloc(size_t size)
 		return (NULL);
 	}
 
-	for (i = 0; i < x; i += 1)
+	/*for (i = 0; i < x; i += 1)*/
 	{
 		brk_base = ((void *)((char *)brk_base + size));
 	}
