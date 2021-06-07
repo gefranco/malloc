@@ -12,6 +12,9 @@ void *naive_malloc(size_t size)
 	static void *brk_base;
 	int i;
 
+	if (size == 0)
+		return (NULL);
+
 	size += sizeof(size_t);
 	size = align(size);
 
