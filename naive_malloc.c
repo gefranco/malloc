@@ -10,34 +10,33 @@ void *naive_malloc(size_t size)
 {
 	static int x;
 	static void *brk_base;
-        int i;
+	int i;
 
 	size += sizeof(size_t);
 	size = align(size);
+
 	if (!x)
-        {
+	{
 		x = 0;
-                brk_base = sbrk(sysconf(_SC_PAGESIZE));
-                if (brk_base == (void *)-1)
-                        return NULL;
-        }
+		brk_base = sbrk(sysconf(_SC_PAGESIZE));
+		if (brk_base == (void *)-1)
+		return (NULL);
+	}
 
+	for (i = 0; i < x; i += 1)
+	{
+		brk_base = ((void *)((char *)brk_base + size));
+	}
 
-        for (i = 0; i < x; i += 1)
-        {
-	        brk_base = ((void *)((char *)brk_base + size));
-       		
-	 }
-
-        x += 1;
+	x += 1;
 	memcpy(brk_base, &size, sizeof(size));
-        brk_base = ((char *)brk_base)+ sizeof(size_t);
-        return (brk_base);
+	brk_base = ((char *)brk_base) + sizeof(size_t);
+	return (brk_base);
 }
 
 size_t align(size_t size)
 {
 	if (size % 8 == 0)
-		return(size);
+		return (size);
 	return (size + (8 - (size % 8)));
 }
