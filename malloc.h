@@ -7,8 +7,8 @@ union header
 {
 	struct
 	{
-        	union header *ptr;
-        	unsigned size;
+		union header *ptr;
+		unsigned int size;
 	} s;
 	Align x;
 };
