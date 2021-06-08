@@ -10,7 +10,7 @@ size_t align(size_t size);
  * @size: the size needed to be allocated
  * Return: Pointer to the address allocated
  */
-void *naive_malloc(size_t size)
+void *malloc(size_t size)
 {
 	static int x;
 	static void *brk_base;
