@@ -28,8 +28,8 @@ void *naive_malloc(size_t size)
 	}
 
 	/*for (i = 0; i < x; i += 1)*/
-h = brk_base;
-	if (x > 0)
+	h = brk_base;
+	/*if (x > 0)*/
 	{
         	/*h = ((void *)((char *)brk_base));*/
 		brk_base = ((void *)((char *)brk_base + size));
@@ -39,8 +39,8 @@ h = brk_base;
 	/*h = brk_base;
 	h = ((void *)((char *)brk_base - size + sizeof(size_t)));*/
 	memcpy(h, &size, sizeof(size));
-	brk_base = ((char *)h) + sizeof(size_t);
-	return (brk_base);
+	h = ((char *)h) + sizeof(size_t);
+	return (h);
 }
 
 size_t align(size_t size)
