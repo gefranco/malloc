@@ -3,17 +3,6 @@
 
 
 typedef long Align;
-
-/**
- * union header- header
- * @s: ...
- * @x: ..
- */
-union header
-{
-	struct s;
-	Align x;
-};
 /**
  * struct s - struct
  * @ptr: ...
@@ -23,6 +12,16 @@ struct s
 {
 	union header *ptr;
 	unsigned int size;
+};
+/**
+ * union header- header
+ * @test_s: ...
+ * @x: ..
+ */
+union header
+{
+	struct s test_s;
+	Align x;
 };
 typedef union header Header;
 
