@@ -14,7 +14,7 @@ void *_malloc(size_t size)
 {
 	static int x;
 	static void *brk_base;
-
+	static size_t available;
 	void *h;
 
 	if (size == 0)
@@ -28,13 +28,24 @@ void *_malloc(size_t size)
 	{
 		x = 0;
 		brk_base = sbrk(sysconf(_SC_PAGESIZE));
+		available = sysconf(_SC_PAGESIZE);
 		if (brk_base == (void *)-1)
 			return (NULL);
 	}
+	printf("available: %lu\n", available);
+	while(available < size)
+	{
+		if (sbrk(sysconf(_SC_PAGESIZE)) == (void *)-1)
+			return NULL;
+
+		available += sysconf(_SC_PAGESIZE);
+	}
+	
 
 	h = brk_base;
 	brk_base = ((void *)((char *)brk_base + size));
-
+	
+	available = available - size;
 	x += 1;
 	memcpy(h, &size, sizeof(size));
 	h = ((char *)h) + sizeof(size_t);
