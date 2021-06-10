@@ -32,7 +32,6 @@ void *_malloc(size_t size)
 		if (brk_base == (void *)-1)
 			return (NULL);
 	}
-	printf("available: %lu\n", available);
 	while(available < size)
 	{
 		if (sbrk(sysconf(_SC_PAGESIZE)) == (void *)-1)
