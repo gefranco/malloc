@@ -6,7 +6,7 @@
 
 size_t align(size_t size);
 /**
- * naive_malloc -  naive malloc
+ * _malloc -  naive malloc
  * @size: the size needed to be allocated
  * Return: Pointer to the address allocated
  */
@@ -32,18 +32,18 @@ void *_malloc(size_t size)
 		if (brk_base == (void *)-1)
 			return (NULL);
 	}
-	while(available < size)
+	while (available < size)
 	{
 		if (sbrk(sysconf(_SC_PAGESIZE)) == (void *)-1)
-			return NULL;
+			return (NULL);
 
 		available += sysconf(_SC_PAGESIZE);
 	}
-	
+
 
 	h = brk_base;
 	brk_base = ((void *)((char *)brk_base + size));
-	
+
 	available = available - size;
 	x += 1;
 	memcpy(h, &size, sizeof(size));
